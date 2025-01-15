@@ -27,9 +27,11 @@ printmenu() {
 }
 
 TTYUSB="/dev/ttyUSB1"
-#configure serial port, assuming /dev/ttyUSB1
-stty -F ${ttyUSB1} 19200 cs8 -cstopb -parenb crtscts
 
+#configure serial port, assuming /dev/ttyUSB1
+stty -F ${TTYUSB} 19200 cs8 -cstopb -parenb crtscts
+
+#run menu loop until exit
 while true; do
 	printmenu
 	read -p "Enter: " choice
