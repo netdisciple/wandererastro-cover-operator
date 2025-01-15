@@ -26,10 +26,15 @@ printmenu() {
 
 }
 
-TTYUSB="/dev/ttyUSB1"
-
+#TTYUSB="/dev/ttyUSB1"
 #configure serial port, assuming /dev/ttyUSB1
-stty -F ${TTYUSB} 19200 cs8 -cstopb -parenb crtscts
+stty -F /dev/ttyUSB1 19200 cs8 -cstopb -parenb crtscts
+#stty -F /dev/ttyUSB1 19200 cs8 -cstopb -parenb
+#stty -F /dev/ttyUSB1 crtscts
+
+minicom -D /dev/ttyUSB1 -b 19200 -C /dev/null -o <<EOF
+!exit
+EOF
 
 #run menu loop until exit
 while true; do
@@ -50,6 +55,7 @@ while true; do
 			echo "1000" > /dev/ttyUSB1 && echo "255" > /dev/ttyUSB1
 			;;
 		q)
+			pkill minicom
 			exit
 			;;
 		*)
