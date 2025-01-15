@@ -12,6 +12,8 @@ printmenu() {
 	echo " \____\___/ \_/ \___|_|     \___/| .__/ \___|_|  \__,_|\__\___/|_|     "
 	echo "                                 |_|                                   "
 	echo " "
+	echo "Serial connection required: minicom -D /dev/ttyUSB1 -b 19200"
+	echo " "
 	echo "WandererAstro Cover Operator"
 	echo " "
 	echo "Select Action"
@@ -26,6 +28,8 @@ printmenu() {
 
 }
 
+stty -F /dev/ttyUSB1 19200 cs8 -cstopb -parenb crtscts
+
 while true; do
 	printmenu
 	read -p "Enter: " choice
@@ -35,7 +39,6 @@ while true; do
 			echo "1001" > /dev/ttyUSB1
 			;;
 		2)
-
 			echo "1000" > /dev/ttyUSB1
 			;;
 		3)
